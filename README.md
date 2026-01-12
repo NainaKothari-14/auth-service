@@ -15,10 +15,11 @@ An independent authentication service built with Node.js, Express, PostgreSQL, a
 ```
 auth-service/
 ├── backend/          # Node.js + Express
+    └── .env.example      
 ├── frontend/         # React (Vite)
 ├── client-app-1/     # Example app 1
 ├── client-app-2/     # Example app 2
-└── .env.example
+
 ```
 
 ## 🚀 Quick Start
