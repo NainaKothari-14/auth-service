@@ -1,0 +1,11 @@
+backend/
+├─ config/
+│  └─ db.js
+├─ models/   AuthMethod.js, User.js, OTP.js
+├─ controllers/   AuthController.js 
+├─ routes/  auth.js 
+├─ services/   emailServices.js, jwtServices.js, otpServices.js 
+├─ middlewares/  authMiddleware.js 
+├─ utils/  sendEmail.js
+├─ app.js
+└─ server.js   

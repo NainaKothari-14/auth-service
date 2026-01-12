@@ -1,0 +1,43 @@
+{
+  "name": "saml2-js",
+  "version": "4.0.4",
+  "description": "SAML 2.0 node helpers",
+  "author": "Clever",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "engines": {
+    "node": ">=10.x"
+  },
+  "scripts": {
+    "build": "coffee --bare -c -o lib-js lib",
+    "test": "NODE_ENV=test mocha --require coffeescript/register test/*.coffee",
+    "test-cov": "NODE_ENV=test nyc --extension .coffee -r html -r text mocha --require coffeescript/register test/*.coffee",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Clever/saml2.git"
+  },
+  "keywords": [
+    "saml",
+    "node"
+  ],
+  "bugs": {
+    "url": "https://github.com/Clever/saml2/issues"
+  },
+  "devDependencies": {
+    "coffeescript": "^1.12.7",
+    "mocha": "^8.4.0",
+    "nyc": "^15.0.0"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.6",
+    "async": "^3.2.0",
+    "debug": "^4.3.0",
+    "underscore": "^1.8.0",
+    "xml-crypto": "^6.1.2",
+    "xml-encryption": "^3.0.2",
+    "xmlbuilder2": "^2.4.0",
+    "xpath": "^0.0.34"
+  }
+}

@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.logo {
+  height: 50px;
+  margin: 10px;
+}
+
+.login-card {
+  margin: 50px auto;
+  padding: 30px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.login-card button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+}
+
+.google-btn {
+  background-color: #4285F4;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.github-btn {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
