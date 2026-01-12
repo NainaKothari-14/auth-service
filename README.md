@@ -1,72 +1,46 @@
-# 🔐 Auth Service
+# Auth Service
 
 An independent authentication service built with Node.js, Express, PostgreSQL, and React. Supports multiple authentication methods and integrates easily with any Node + React project.
 
-## ✨ Features
+## Features
 
-- **📧 Email/Password** – Standard authentication
-- **🔢 OTP via Email** – Email verification & password reset
-- **💬 OTP via WhatsApp** – Password reset via WhatsApp
-- **🌐 OAuth2** – Google & GitHub login
-- **🎫 SSO** – Single sign-on for multiple apps
+- **Email/Password** – Standard authentication
+- **OTP via Email** – Email verification & password reset
+- **OTP via WhatsApp** – Password reset via WhatsApp
+- **OAuth2** – Google & GitHub login
+- **SSO** – Single sign-on for multiple apps
 
-## 📁 Structure
+## Project Structure
 
 ```
 auth-service/
 ├── backend/          # Node.js + Express
-    └── .env.example      
+│   └── .env.example      
 ├── frontend/         # React (Vite)
 ├── client-app-1/     # Example app 1
-├── client-app-2/     # Example app 2
-
+└── client-app-2/     # Example app 2
 ```
 
-## 🚀 Quick Start
+## Getting Started
 
-### Install
+### Installation
 
-```bash
-git clone https://github.com/NainaKothari-14/auth-service.git
-cd auth-service
+Clone the repository and install dependencies for both backend and frontend.
 
-# Backend
-cd backend && npm install
+### Configuration
 
-# Frontend
-cd ../frontend && npm install
-```
+Create a `.env` file in `/backend` based on `.env.example` with your credentials:
+- Database configuration (PostgreSQL)
+- JWT and cookie secrets
+- Email service (Resend API)
+- Twilio for WhatsApp OTP
+- OAuth credentials (Google, GitHub)
 
-### Configure
+### Running the Application
 
-Create `.env` in `/backend`:
+Start the backend server (runs on port 5000) and frontend development server (runs on port 5173).
 
-```env
-PORT=5000
-JWT_SECRET=your_jwt_secret
-RESEND_API_KEY=your_resend_key
-TWILIO_ACCOUNT_SID=your_twilio_sid
-TWILIO_AUTH_TOKEN=your_twilio_token
-GOOGLE_CLIENT_ID=your_google_id
-GITHUB_CLIENT_ID=your_github_id
-DB_NAME=your_db_name
-DB_USER=your_db_user
-DB_PASS=your_db_password
-```
-
-### Run
-
-```bash
-# Backend
-cd backend && npm run dev
-# → http://localhost:5000
-
-# Frontend
-cd frontend && npm run dev
-# → http://localhost:5173
-```
-
-## 🔌 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -76,37 +50,21 @@ cd frontend && npm run dev
 | `POST` | `/sso/login` | SSO authentication |
 | `GET` | `/sso/verify` | Verify JWT token |
 
-## 🔗 Integration
+## Integration
 
-```html
-<button onclick="loginWithSSO()">Login</button>
+To integrate with your application, redirect users to the SSO login endpoint with your callback URL. After successful authentication, users will be redirected back with a JWT token in the query parameters.
 
-<script>
-  function loginWithSSO() {
-    window.location.href = 'http://localhost:5000/sso/login?redirect=' + 
-                           encodeURIComponent(window.location.origin);
-  }
-</script>
-```
+## Important Notes
 
-After login, get token from URL and store it:
+- WhatsApp OTP requires an active Twilio account
+- OAuth requires valid credentials from Google and GitHub
+- Never commit `.env` files with real secrets
+- Use HTTPS in production environments
 
-```javascript
-const token = new URLSearchParams(window.location.search).get('token');
-localStorage.setItem('authToken', token);
-```
+## Author
 
-## ⚠️ Notes
-
-- WhatsApp OTP requires Twilio account
-- OAuth needs Google/GitHub credentials
-- Never commit `.env` with real secrets
-- Use HTTPS in production
-
-## 👩‍💻 Author
-
-**Naina Kothari** – [@NainaKothari-14](https://github.com/NainaKothari-14)
+**Naina Kothari** – [GitHub](https://github.com/NainaKothari-14)
 
 ---
 
-⭐ Star this repo if you find it helpful!
+If you find this project helpful, please star the repository!
