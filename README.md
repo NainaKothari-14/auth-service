@@ -1,47 +1,94 @@
 # Auth Service
-
 An independent authentication service built with Node.js, Express, PostgreSQL, and React. Supports multiple authentication methods and integrates easily with any Node + React project.
 
 ## Features
-
-- **Email/Password** – Standard authentication
-- **OTP via Email** – Email verification & password reset
-- **OTP via WhatsApp** – Password reset via WhatsApp
-- **OAuth2** – Google & GitHub login
-- **SSO** – Single sign-on for multiple apps
+* **Email/Password** – Standard authentication
+* **OTP via Email** – Email verification & password reset
+* **OTP via WhatsApp** – Password reset via WhatsApp
+* **OAuth2** – Google & GitHub login
+* **SSO** – Single sign-on for multiple apps
 
 ## Project Structure
-
 ```
 auth-service/
 ├── backend/          # Node.js + Express
 │   └── .env.example      
 ├── frontend/         # React (Vite)
 ├── client-app-1/     # Example app 1
-└── client-app-2/     # Example app 2
+├── client-app-2/     # Example app 2
+└── screenshots/      # Application screenshots
 ```
+
+## Screenshots
+
+### Signup Page
+<img src="screenshots/SignupPage.png" width="600" alt="Signup Page">
+
+### Login Page
+<img src="screenshots/loginPage.png" width="600" alt="Login Page">
+
+### SSO Login
+<img src="screenshots/LoginSSO.png" width="600" alt="SSO Login">
+
+### Client App Login via SSO
+<img src="screenshots/ClientappLoginviasso.png" width="600" alt="Client App SSO">
+
+### OAuth2 Authentication
+<img src="screenshots/oauth2.png" width="600" alt="OAuth2">
+
+### Password Reset Request
+<img src="screenshots/resetPassword.png" width="600" alt="Reset Password Form">
+
+### Reset Password  
+<img src="screenshots/Reset.png" width="600" alt="Password Reset">
+
+### OTP Verification
+<img src="screenshots/DummyOTP.png" width="600" alt="OTP Verification">
+
+### User Dashboard
+<img src="screenshots/UserDashboard.png" width="600" alt="User Dashboard">
 
 ## Getting Started
 
 ### Installation
-
 Clone the repository and install dependencies for both backend and frontend.
 
-### Configuration
+```bash
+git clone https://github.com/yourusername/auth-service.git
+cd auth-service
 
+# Install backend dependencies
+cd backend
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+```
+
+### Configuration
 Create a `.env` file in `/backend` based on `.env.example` with your credentials:
-- Database configuration (PostgreSQL)
-- JWT and cookie secrets
-- Email service (Resend API)
-- Twilio for WhatsApp OTP
-- OAuth credentials (Google, GitHub)
+
+* Database configuration (PostgreSQL)
+* JWT and cookie secrets
+* Email service (Resend API)
+* Twilio for WhatsApp OTP
+* OAuth credentials (Google, GitHub)
 
 ### Running the Application
-
 Start the backend server (runs on port 5000) and frontend development server (runs on port 5173).
 
-## API Endpoints
+```bash
+# Start backend
+cd backend
+npm start
 
+# Start frontend (in a new terminal)
+cd frontend
+npm run dev
+```
+
+## API Endpoints
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/auth/google` | Google OAuth |
@@ -51,20 +98,21 @@ Start the backend server (runs on port 5000) and frontend development server (ru
 | `GET` | `/sso/verify` | Verify JWT token |
 
 ## Integration
-
 To integrate with your application, redirect users to the SSO login endpoint with your callback URL. After successful authentication, users will be redirected back with a JWT token in the query parameters.
 
-## Important Notes
+```javascript
+// Example: Redirect to SSO
+window.location.href = `http://localhost:5000/sso/login?callbackUrl=${encodeURIComponent(yourCallbackUrl)}`;
+```
 
-- WhatsApp OTP requires an active Twilio account
-- OAuth requires valid credentials from Google and GitHub
-- Never commit `.env` files with real secrets
-- Use HTTPS in production environments
+## Important Notes
+* WhatsApp OTP requires an active Twilio account
+* OAuth requires valid credentials from Google and GitHub
+* Never commit `.env` files with real secrets
+* Use HTTPS in production environments
 
 ## Author
-
-**Naina Kothari** – [GitHub](https://github.com/NainaKothari-14)
+**Naina Kothari** – [GitHub](https://github.com/yourusername)
 
 ---
-
-If you find this project helpful, please star the repository!
+If you find this project helpful, please star the repository! ⭐
