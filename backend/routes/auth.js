@@ -1,4 +1,4 @@
-// routes/auth.js
+//routes/auth.js
 import express from "express";
 import User from "../models/User.js";
 import OTP from "../models/OTP.js";
@@ -15,6 +15,7 @@ const router = express.Router();
  * POST /auth/register
  * Body: { username, email, password, phone }
  */
+
 router.post("/register", async (req, res) => {
   const { username, email, password, phone } = req.body;
 
@@ -32,7 +33,7 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Email already registered" });
     }
 
-    // DON'T hash here - let the beforeCreate hook do it
+    // Registeration
     const user = await User.create({
       username,
       email,
@@ -59,6 +60,7 @@ router.post("/register", async (req, res) => {
  * POST /auth/send-verification
  * Body: { email, method: 'email' | 'whatsapp' }
  */
+
 router.post("/send-verification", async (req, res) => {
   const { email, method } = req.body;
 
@@ -107,6 +109,7 @@ router.post("/send-verification", async (req, res) => {
  * POST /auth/verify-account
  * Body: { email, otp }
  */
+
 router.post("/verify-account", async (req, res) => {
   const { email, otp } = req.body;
 
@@ -164,6 +167,7 @@ router.post("/verify-account", async (req, res) => {
  * POST /auth/login
  * Body: { email, password }
  */
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -221,6 +225,7 @@ router.post("/login", async (req, res) => {
  * POST /auth/forgot-password
  * Body: { email, method: 'email' | 'whatsapp' }
  */
+
 router.post("/forgot-password", async (req, res) => {
   const { email, method } = req.body;
 
@@ -250,15 +255,15 @@ router.post("/forgot-password", async (req, res) => {
     if (method === 'whatsapp' && user.phone) {
       try {
         await sendOtpWhatsapp(user.phone, otp);
-        console.log(`✅ WhatsApp password reset sent to ${user.phone}`);
+        console.log(`WhatsApp password reset sent to ${user.phone}`);
       } catch (whatsappErr) {
-        console.warn("⚠️ WhatsApp failed, sending email instead");
+        console.warn("WhatsApp failed, sending email instead");
         await sendOtpEmail(email, otp);
-        console.log(`✅ Email password reset sent to ${email}`);
+        console.log(`Email password reset sent to ${email}`);
       }
     } else {
       await sendOtpEmail(email, otp);
-      console.log(`✅ Email password reset sent to ${email}`);
+      console.log(`Email password reset sent to ${email}`);
     }
 
     res.json({ 
@@ -274,6 +279,7 @@ router.post("/forgot-password", async (req, res) => {
  * POST /auth/reset-password
  * Body: { email, otp, newPassword }
  */
+
 router.post("/reset-password", async (req, res) => {
   const { email, otp, newPassword } = req.body;
 

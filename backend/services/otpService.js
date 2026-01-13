@@ -1,6 +1,6 @@
 import OTP from "../models/OTP.js";
 import User from "../models/User.js";
-
+//generate otp
 export const generateOTP = () =>
   Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -17,6 +17,8 @@ export const saveOTP = async (email, otp, expiryMinutes = 5) => {
     expiresAt: new Date(Date.now() + expiryMinutes * 60 * 1000),
   });
 };
+
+//to verify otp
 export const verifyOTP = async (email, otp) => {
   const user = await User.findOne({ where: { email } });
   if (!user) throw new Error("User not found");

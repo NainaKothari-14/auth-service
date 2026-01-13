@@ -6,12 +6,12 @@ const OTP = sequelize.define("OTP", {
   otpCode: {
     type: DataTypes.STRING,
     allowNull: false,
-    field: "otp_code", // 👈 DB column
+    field: "otp_code", 
   },
   expiresAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    field: "expires_at", // 👈 DB column
+    field: "expires_at", 
   },
   used: {
     type: DataTypes.BOOLEAN,
