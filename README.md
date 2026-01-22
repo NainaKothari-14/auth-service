@@ -11,7 +11,7 @@
 
 ## Overview
 
-A production-ready, independent authentication microservice built with Node.js, Express, PostgreSQL, and React. Provides multiple authentication methods including traditional credentials, OAuth2, OTP verification, and Single Sign-On (SSO) capabilities that can be integrated into any application.
+A scalable authentication microservice built with Node.js, Express, PostgreSQL, and React. Provides multiple authentication methods including traditional credentials, OAuth2, OTP verification, and Single Sign-On (SSO) capabilities that can be integrated into any application.
 
 ### Why This Service?
 
@@ -116,7 +116,7 @@ auth-service/
 - Node.js 16.x or higher
 - PostgreSQL 13+
 - npm 7+
-- Gmail account (for email OTP)
+- Resend account (for email OTP)
 - Twilio account (optional, for WhatsApp OTP)
 - Google OAuth credentials (optional)
 - GitHub OAuth credentials (optional)
@@ -239,6 +239,14 @@ npm run dev
 4. Test password reset with email OTP
 5. Open client apps to test SSO integration
 
+**Demo Flow (Optional):**
+```
+1. Register: test@example.com / Test123!
+2. Verify email (check console for OTP in development)
+3. Login and access dashboard
+4. Test SSO from client-app-1
+```
+
 ## Screenshots
 
 ### User Registration
@@ -288,7 +296,24 @@ npm run dev
 
 ## API Documentation
 
-### Authentication Endpoints
+### Core Endpoints Overview
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `POST` | `/auth/register` | Create new user account | No |
+| `POST` | `/auth/login` | Login with email/password | No |
+| `GET` | `/auth/google` | Login with Google OAuth | No |
+| `GET` | `/auth/github` | Login with GitHub OAuth | No |
+| `POST` | `/auth/forgot-password` | Request password reset OTP | No |
+| `POST` | `/auth/reset-password` | Reset password with OTP | No |
+| `GET` | `/sso/login` | SSO login page | No |
+| `POST` | `/sso/login` | SSO authentication | No |
+| `GET` | `/sso/verify` | Verify JWT token | Yes |
+| `GET` | `/user/profile` | Get user profile | Yes |
+
+### Detailed API Reference
+
+#### Authentication Endpoints
 
 #### Register User
 
@@ -566,8 +591,8 @@ See `client-app-1` and `client-app-2` directories for complete working examples 
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Create a new project or select existing
-3. Enable Google+ API
-4. Create OAuth 2.0 credentials
+3. Navigate to "APIs & Services" → "Credentials"
+4. Create OAuth 2.0 Client ID credentials
 5. Add authorized redirect URI: `http://localhost:5000/auth/google/callback`
 6. Copy Client ID and Client Secret to `.env`
 
@@ -594,33 +619,23 @@ See `client-app-1` and `client-app-2` directories for complete working examples 
 
 ## Architecture
 
-### Authentication Flow
+### How Authentication Works
 
-```
-User → Frontend → API → Passport/JWT → Database
-                    ↓
-              Email/SMS Service
-                    ↓
-              OAuth Provider
-```
+The service uses JWT tokens for stateless authentication. When users log in, they receive a token that proves their identity for subsequent requests.
 
-### SSO Flow
-
+**Basic Flow:**
 ```
-Client App → SSO Login Page → Auth Service → Verify Credentials
-                                    ↓
-                            Generate JWT Token
-                                    ↓
-                        Redirect to Client with Token
-                                    ↓
-                          Client Verifies Token
-                                    ↓
-                            User Logged In
+User Login → Verify Credentials → Generate JWT → Return Token → User Makes Requests with Token
 ```
 
-### Security Architecture
+**SSO Flow:**
+```
+Client App → Redirect to Auth Service → User Logs In → Generate JWT → Redirect Back with Token → Client Verifies Token
+```
 
-- **Password Storage**: bcrypt with salt rounds
+### Security Implementation
+
+- **Password Storage**: bcrypt hashing with salt rounds
 - **Token Management**: JWT with configurable expiration
 - **Session Handling**: HTTP-only cookies for web clients
 - **CORS Protection**: Configurable allowed origins
